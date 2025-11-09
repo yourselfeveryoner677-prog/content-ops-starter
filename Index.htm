@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SJ Makeover & Academy - Luxury Web Redesign</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Fonts - Luxury & Professional */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap');
+
+        /* --- TANISHQ INSPIRED THEME: WHITE, MAROON & GOLD --- */
+        :root {
+            --color-canvas: #FFFFFF;
+            /* Pure White Background */
+            --color-dark: #2c0a0a;
+            /* Deep Maroon/Brown (Text/Primary) */
+            --color-accent: #c49b65;
+            /* Muted Gold/Copper */
+            --color-secondary-bg: #f8f8f8;
+            /* Soft Gray for Sections */
+            --color-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- GLOBAL WEB STYLES --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Smooth scrolling */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-color: var(--color-canvas);
+            color: var(--color-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Inner Content Area: Scrolls */
+        #main-container {
+            width: 100%;
+            padding-top: 80px;
+            /* Space for fixed header */
+            padding-bottom: 80px;
+            /* Increased space for footer */
+            min-height: calc(100vh - 80px);
+            overflow-y: auto;
+            transition: opacity 0.3s ease-in-out;
+            max-width: 100%;
+            /* Full width */
+            margin: 0 auto;
+        }
+
+        /* --- FIXED HEADER (Hide on Scroll Logic) --- */
+        #header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 100;
+            background-color: var(--color-canvas);
+            box-shadow: 0 2px 10px var(--color-shadow);
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(0);
+            /* Initial state */
+        }
+
+        #header-bar.hidden {
+            transform: translateY(-100%);
+            /* Slide up */
+        }
+
+
+        /* --- FOOTER (Hide on Scroll Logic) --- */
+        #footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--color-dark);
+            color: #ccc;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            z-index: 90;
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(0);
+            /* Initial state */
+        }
+
+        #footer.hidden {
+            transform: translateY(100%);
+            /* Slide down */
+        }
+
+        #footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        #footer a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* --- TYPOGRAPHY --- */
+        .brand-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--color-dark);
+            font-size: 2.25rem;
+            font-weight: 700;
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            color: var(--color-dark);
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        /* --- CARD STYLES --- */
+        .card {
+            background-color: var(--color-canvas);
+            border-radius: 4px;
+            border: 1px solid var(--color-secondary-bg);
+            box-shadow: 0 2px 5px var(--color-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Smoother transition */
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            /* Slightly more lift */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            /* Softer, wider shadow */
+        }
+
+        /* --- BUTTONS --- */
+        .primary-button {
+            background-color: var(--color-accent);
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.15s ease;
+            /* Smoother transform */
+            border-radius: 9999px;
+            /* Pill shape */
+            padding: 0.75rem 1.5rem;
+            /* Standard padding */
+            cursor: pointer;
+            display: inline-block;
+            /* Ensure it behaves like a block for transform */
+        }
+
+        .primary-button:hover {
+            background-color: #a88152;
+            /* Darker gold */
+            transform: scale(1.04);
+            /* Slightly larger scale */
+        }
+
+        .secondary-button {
+            border: 1px solid var(--color-dark);
+            color: var(--color-dark);
+            transition: background-color 0.2s, color 0.2s, transform 0.15s ease;
+            /* Smoother transform */
+            border-radius: 9999px;
+            /* Pill shape */
+            padding: 0.75rem 1.5rem;
+            /* Standard padding */
+            cursor: pointer;
+            display: inline-block;
+            /* Ensure it behaves like a block for transform */
+        }
+
+        .secondary-button:hover {
+            background-color: var(--color-dark);
+            color: white;
+            transform: scale(1.04);
+            /* Slightly larger scale */
+        }
+
+        /* --- CHATBOT THEME (Web Position) - Adjusted z-index --- */
+        #chatbot-button {
+            position: fixed;
+            bottom: 90px;
+            /* Raise above hidden footer space */
+            right: 30px;
+            z-index: 150;
+            width: 55px;
+            height: 55px;
+            background-color: var(--color-accent);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            /* Match footer transition */
+        }
+
+        #chatbot-button.hidden {
+            transform: translateY(100px);
+            /* Move down with footer */
+        }
+
+        #chat-window {
+            position: fixed;
+            bottom: 160px;
+            /* Raise above hidden footer space */
+            right: 30px;
+            max-width: 350px;
+            height: 400px;
+            z-index: 140;
+            background-color: white;
+            border: 2px solid var(--color-accent);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease;
+            /* Add opacity transition */
+            opacity: 1;
+        }
+
+        #chat-window.hidden {
+            transform: translateY(50px);
+            /* Slight move down when hidden */
+            opacity: 0;
+            pointer-events: none;
+            /* Disable interaction when hidden */
+        }
+
+        /* Chat Colors updated for Tanishq theme */
+        #chat-window>div:first-child {
+            background-color: var(--color-accent);
+            color: white;
+            border-radius: 6px 6px 0 0;
+            padding: 0.75rem 1rem;
+        }
+
+        /* Header */
+        #chat-window #chat-history {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 0.75rem;
+            background-color: var(--color-secondary-bg);
+        }
+
+        /* History area */
+        .message-user {
+            background-color: var(--color-accent);
+            color: white;
+            border-radius: 12px 12px 2px 12px;
+        }
+
+        .message-bot {
+            background-color: #e9e9e9;
+            color: var(--color-dark);
+            border-radius: 12px 12px 12px 2px;
+        }
+
+        #chat-window .p-3.flex {
+            border-top: 1px solid #ddd;
+            background-color: white;
+            padding: 0.75rem;
+        }
+
+        /* Input area */
+        #chat-window #user-input {
+            background-color: var(--color-secondary-bg);
+            color: var(--color-dark);
+            border: 1px solid #ccc;
+            border-right: none;
+        }
+
+        #chat-window .primary-button {
+            border-radius: 0 9999px 9999px 0;
+            padding: 0.5rem 1rem;
+        }
+
+        /* Adjust send button */
+        /* WhatsApp fallback link style */
+        .whatsapp-fallback {
+            color: var(--color-accent);
+            text-decoration: underline;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+
+        /* --- HOVER PREVIEW (Desktop Only) --- */
+        #category-preview {
+            position: fixed;
+            z-index: 500;
+            pointer-events: none;
+            background-color: var(--color-canvas);
+            border: 1px solid var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: opacity 0.2s ease-out;
+            /* Faster transition */
+            display: none;
+            min-width: 250px;
+            top: 80px;
+            /* Below the main header */
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        #category-preview.show {
+            opacity: 1;
+            display: block;
+        }
+
+        /* --- HERO SLIDER STYLES (Full Width) --- */
+        .hero-slider-container {
+            width: 100%;
+            height: 450px;
+
+            @media (max-width: 640px) {
+                height: 350px;
+            }
+
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-slider-wrapper {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .hero-slide {
+            width: 33.333%;
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: white;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            opacity: 1;
+            background-color: var(--color-accent);
+        }
+
+        /* --- PRODUCT GRID STYLES --- */
+        .product-image-container {
+            width: 100%;
+            padding-top: 100%;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+            background-color: var(--color-secondary-bg);
+        }
+
+        .product-image-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--color-dark);
+            border: 1px dashed var(--color-accent);
+        }
+
+        /* --- GEMINI MODAL THEME --- */
+        #ai-output-modal>div,
+        #service-plan-modal>div,
+        #checkout-modal-backdrop>div {
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        #ai-output-modal h3,
+        #service-plan-modal h3,
+        #checkout-modal-backdrop h3 {
+            color: var(--color-accent);
+        }
+
+        /* --- INQUIRY FORM STYLES --- */
+        .inquiry-form label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .inquiry-form input,
+        .inquiry-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .inquiry-form input:focus,
+        .inquiry-form textarea:focus {
+            border-color: var(--color-accent);
+            outline: none;
+        }
+
+        /* --- FADE-IN ANIMATION --- */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1. FIXED TOP NAVIGATION BAR (Tanishq Style) -->
+    <header id="header-bar">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto h-full px-4 sm:px-6">
+            <h1 class="brand-title text-2xl sm:text-3xl cursor-pointer" onclick="showPage('home');">
+                SJ Makeover & Academy
+            </h1>
+
+            <!-- Desktop Nav -->
+            <div id="desktop-nav" class="hidden md:flex space-x-8 text-sm font-semibold h-full items-center">
+                <a id="nav-services"
+                    class="nav-link text-dark hover:text-accent h-full flex items-center border-b-2 border-transparent hover:border-accent transition duration-150"
+                    href="#" onclick="showPage('services')">SERVICES</a>
+                <a id="nav-academy"
+                    class="nav-link text-dark hover:text-accent h-full flex items-center border-b-2 border-transparent hover:border-accent transition duration-150"
+                    href="#" onclick="showPage('academy')">ACADEMY</a>
+                <a id="nav-shop"
+                    class="nav-link text-dark hover:text-accent h-full flex items-center border-b-2 border-transparent hover:border-accent transition duration-150"
+                    href="#" onclick="showPage('products')">SHOP</a>
+                <a id="nav-contact"
+                    class="nav-link text-dark hover:text-accent h-full flex items-center border-b-2 border-transparent hover:border-accent transition duration-150"
+                    href="#" onclick="showPage('contact')">CONTACT</a>
+                <button id="cart-button" class="hidden primary-button text-xs px-3 py-1 font-bold shadow-md"
+                    onclick="renderCheckoutModal()">
+                    CART (0)
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex items-center md:hidden space-x-2">
+                <button id="mobile-cart-button" class="primary-button text-xs px-3 py-1 font-bold shadow-md hidden"
+                    onclick="renderCheckoutModal()">
+                    CART (0)
+                </button>
+                <button id="menu-toggle-button" class="text-dark p-2" onclick="toggleMobileMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-menu">
+                        <line x1="4" y1="12" x2="20" y2="12" />
+                        <line x1="4" y1="6" x2="20" y2="6" />
+                        <line x1="4" y1="18" x2="20" y2="18" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[110] bg-white/95 backdrop-blur-sm hidden md:hidden">
+        <!-- Increased z-index -->
+        <div class="flex justify-between items-center h-20 px-6 border-b border-gray-200">
+            <h1 class="brand-title text-xl text-dark">Menu</h1>
+            <button onclick="closeMobileMenu()" class="text-dark p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-x">
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
+            </button>
+        </div>
+        <nav class="flex flex-col p-6 space-y-4 text-lg font-semibold">
+            <a class="text-dark hover:text-accent py-2" href="#" onclick="showPage('services');">SERVICES</a>
+            <a class="text-dark hover:text-accent py-2" href="#" onclick="showPage('academy');">ACADEMY</a>
+            <a class="text-dark hover:text-accent py-2" href="#" onclick="showPage('products');">SHOP</a>
+            <a class="text-dark hover:text-accent py-2" href="#" onclick="showPage('contact');">CONTACT</a>
+        </nav>
+    </div>
+
+    <!-- 2. MAIN CONTENT CONTAINER (Full-Width) -->
+    <div id="main-container">
+        <!-- Sections will be injected here using updateContent() -->
+    </div>
+
+    <!-- 3. Floating Chatbot Button (Web Position) -->
+    <div id="chatbot-button" class="flex items-center justify-center rounded-full cursor-pointer"
+        onclick="toggleChat()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-text">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            <line x1="10" y1="8" x2="16" y2="8" />
+            <line x1="10" y1="12" x2="16" y2="12" />
+        </svg>
+    </div>
+
+    <!-- 4. Chat Window -->
+    <div id="chat-window" class="hidden" style="display: none;"> <!-- Start hidden with style -->
+        <div class="p-3 flex justify-between items-center"> <!-- Header -->
+            <span class="text-base font-bold">SJ Beauty Assistant</span>
+            <button onclick="toggleChat()" class="p-1 cursor-pointer"> <!-- Close button -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-x">
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
+            </button>
+        </div>
+        <div id="chat-history"> <!-- History -->
+            <div class="message-container justify-start flex w-full mb-2"> <!-- Initial message needs flex classes -->
+                <div class="message-bot p-2 max-w-[75%] text-sm my-1 shadow-sm">Namaste! I am your SJ Beauty Assistant.
+                    How can I assist you today, Sir/Ma'am?</div>
+            </div>
+        </div>
+        <div id="loading-indicator" class="hidden p-2 text-center text-accent text-xs"> <!-- Loading -->
+            <span class="animate-pulse">Assistant is typing...</span>
+        </div>
+        <div class="p-3 flex"> <!-- Input -->
+            <input type="text" id="user-input" placeholder="Ask a question..."
+                class="w-full p-2 rounded-l-lg focus:outline-none" onkeydown="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()" class="primary-button rounded-l-none"> <!-- Send button -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-send">
+                    <path d="m22 2-7 20-4-9-9-4 20-7z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- 5. HOVER/CATEGORY PREVIEW (Desktop Only) -->
+    <div id="category-preview" class="hidden md:block">
+        <h4 class="text-accent text-lg font-bold mb-2" id="preview-title">Category Preview</h4>
+        <div id="preview-content" class="text-sm space-y-1">
+            <!-- Content will be injected here -->
+        </div>
+    </div>
+
+    <!-- 6. Global Modal for AI Outputs (Reused for all AI features) -->
+    <div id="ai-output-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-gray-900/70">
+        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full">
+            <h3 id="ai-modal-title" class="text-xl font-bold mb-4"></h3>
+            <div id="ai-loading" class="text-center text-gray-500 py-6 hidden">
+                <span class="animate-pulse">✨ Generating luxury content with Gemini...</span>
+            </div>
+            <div id="ai-result-content"
+                class="text-dark text-sm p-4 bg-gray-100 rounded mb-4 whitespace-pre-wrap border border-gray-300">
+                <!-- AI generated text goes here -->
+            </div>
+            <div class="flex justify-end space-x-3">
+                <button onclick="copyToClipboardAndCloseModal()" class="primary-button px-4 py-2 text-sm">
+                    Copy & Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. Service Plan Modal (Custom Input) -->
+    <div id="service-plan-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-gray-900/70">
+        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full">
+            <h3 class="text-xl font-bold mb-4">✨ Personalized Service Plan</h3>
+            <div id="service-plan-form">
+                <p class="text-dark text-sm mb-4">Tell us about your event and desired look:</p>
+                <label for="occasion-type" class="block text-dark mb-1 font-semibold text-sm">1. Occasion Type:</label>
+                <select id="occasion-type"
+                    class="p-2 w-full rounded-lg bg-gray-100 text-sm mb-4 border border-gray-300">
+                    <option value="Wedding/Reception">Wedding/Reception</option>
+                    <option value="Photoshoot/HD Event">Photoshoot/HD Event</option>
+                    <option value="Party/Social Event">Party/Social Event</option>
+                    <option value="Routine Maintenance/Grooming">Routine Maintenance/Grooming</option>
+                </select>
+
+                <label for="desired-goal" class="block text-dark mb-1 font-semibold text-sm">2. Desired
+                    Look/Goal:</label>
+                <textarea id="desired-goal"
+                    placeholder="e.g., I need a matte, long-lasting look and want smooth, frizz-free hair for 3 months."
+                    rows="3"
+                    class="p-2 w-full rounded-lg bg-gray-100 resize-none text-sm mb-6 border border-gray-300"></textarea>
+            </div>
+            <div id="service-plan-result"
+                class="text-dark text-sm p-4 bg-gray-100 rounded mb-4 hidden border border-gray-300">
+                <!-- AI generated service plan goes here -->
+            </div>
+            <div class="flex justify-between space-x-3">
+                <button onclick="closeServicePlanModal()" class="secondary-button px-4 py-2 text-sm">
+                    Close
+                </button>
+                <button id="generate-plan-button" onclick="generateServicePlan()"
+                    class="primary-button px-4 py-2 text-sm">
+                    Generate Plan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. FOOTER -->
+    <footer id="footer">
+        © 2025 SJ Makeover & Academy, Lucknow. All rights reserved. |
+        <a href="#" onclick="showPage('about')">About Us</a> |
+        <a href="#" onclick="showPage('contact')">Contact</a> |
+        <a href="#" onclick="showPage('career')">Careers</a>
+    </footer>
+
+
+    <script>
+        // --- MOBILE MENU FUNCTIONS ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu-overlay');
+            menu.classList.toggle('hidden');
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu-overlay');
+            menu.classList.add('hidden');
+        }
+
+        // --- GEMINI CONFIGURATION & UTILITIES ---
+        const geminiApiKey = "AIzaSyAIYGK9af4tQqbtiq4aOBwCF_ar5EhcZ8o"; // Keep empty if provided by environment
+        const geminiModel = "gemini-2.5-flash-preview-05-20";
+        const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
+
+        // --- UPDATED SYSTEM PROMPT with CONTEXT ---
+        const systemPromptBase = `Act as the "SJ Beauty Assistant," an expert and polite representative for SJ Makeover & Academy in Lucknow. Your responses must be warm, helpful, professional, and use Indian English (a mix of English and simple Hindi phrases where appropriate, addressing the user as 'Sir' or 'Ma'am'). Keep all replies concise (max 2-3 short sentences).
+
+        Your primary goal is to answer questions using ONLY the information provided below about the business. If the user asks something not covered in the provided details (like specific availability, complex techniques not listed, or external brand comparisons), POLITELY state you don't have that specific detail and suggest they ask via WhatsApp for the most accurate information.
+
+        **DO NOT** invent information. Stick strictly to the details given.
+
+        **BUSINESS DETAILS (Use ONLY this information):**
+        * **Certification:** Certified by Lakmé Academy.
+        * **Location:** Pandit Deen Dayal Upadhyay Nagar, Near Mahamna Shiv Mandir, Sai Data Road, Arjunganj, Lucknow - 226002.
+        * **WhatsApp/Contact:** The ONLY way to book, get exact pricing, or ask detailed questions is via WhatsApp at +91 6387055325. Encourage users to use WhatsApp for specifics.
+        * **Instagram:** @sj_makeover&academy.
+        `; // Context (services, products, etc.) will be added dynamically
+
+        let chatHistory = [{ role: "model", parts: [{ text: "Namaste! I am your SJ Beauty Assistant. How can I assist you today using the information about our services, academy, and products?" }] }];
+
+        const APP_DATA = {
+            contactNumber: "6387055325",
+            appId: 'sj_makeover_academy_default',
+            instagramHandle: "@sj_makeover&academy",
+            instagramUrl: "https://instagram.com/sj_makeover&academy",
+            services: {
+                skin: { title: "Skin Treatments", items: [{ name: "Luxury Facial", price: 1500, detail: "Deep cleansing and rejuvenating facial treatment." }, { name: "Professional Cleanup", price: 800, detail: "Basic skin cleanup for instant glow." }, { name: "Full Body Waxing (Strip)", price: 1200, detail: "Comprehensive waxing for smooth skin." }, { name: "Advanced Skin Treatment", price: 2500, detail: "Targeted treatment for specific skin issues." }] },
+                makeup: { title: "Makeover Services", items: [{ name: "Party Makeup (Basic)", price: 5000, detail: "Glamorous look for evening events." }, { name: "HD Makeup", price: 8000, detail: "High-definition look for photoshoots and events." }, { name: "Bridal Makeup (Traditional)", price: 25000, detail: "Classic bridal look (includes trial session)." }, { name: "Bridal Makeup (Luxury Package)", price: 45000, detail: "Premium package with high-end products & hairstyling." }] },
+                hair: { title: "Hair Services", items: [{ name: "Hair Cut (Stylist)", price: 800, detail: "Expert haircut with consultation." }, { name: "Hair Color (Global)", price: 4500, detail: "Full hair coloring with premium products." }, { name: "Keratin/Smoothening", price: 6000, detail: "Hair chemical treatment for smooth, frizz-free hair." }, { name: "Advanced Hair Stylist Session", price: 1500, detail: "Complex braiding, curling, or updo styling." }] },
+            },
+            academy: { title: "Academy Courses", items: [{ name: "Basic Makeup Artistry Course", price: 35000, detail: "4-week course covering foundational techniques." }, { name: "Advanced Bridal & HD Course", price: 60000, detail: "8-week intensive course on professional makeover skills." }, { name: "Hair Styling & Chemical Course", price: 40000, detail: "6-week course on hair cutting, coloring, and treatments." }] },
+            products: { title: "Exclusive Beauty Products", items: [{ name: "Bridal Makeup Kit Pro", price: 18000, detail: "Comprehensive kit with high-pigment, long-lasting products." }, { name: "HD Foundation Palette", price: 4500, detail: "Oil-free foundation set for flawless HD base." }, { name: "Luxury Brush Set (24 Pcs)", price: 6500, detail: "Professional synthetic and natural hair brush collection." }, { name: "Matte Lipstick Collection", price: 2500, detail: "Set of 5 ultra-matte, smudge-proof liquid lipsticks." }, { name: "Professional Hair Dryer (2000W)", price: 7000, detail: "High-power dryer with ceramic heat technology." }, { name: "Keratin Treatment Home Kit", price: 3800, detail: "Salon-quality smoothing treatment for home use." },] },
+            reviews: [ /* Reviews are not part of chatbot context */]
+        };
+
+        // --- FUNCTION TO GENERATE CONTEXT STRING FOR CHATBOT ---
+        function generateChatbotContext() {
+            let context = "\n* **Services Offered:**\n";
+            for (const categoryKey in APP_DATA.services) {
+                context += `    * ${APP_DATA.services[categoryKey].title}: ${APP_DATA.services[categoryKey].items.map(i => `${i.name} (Approx. ₹${i.price.toLocaleString('en-IN')})`).join(', ')}\n`;
+            }
+            context += "* **Academy Courses:**\n";
+            if (APP_DATA.academy.items) { // Check if academy items exist
+                context += `    * ${APP_DATA.academy.items.map(i => `${i.name} (Approx. ₹${i.price.toLocaleString('en-IN')})`).join(', ')}\n`;
+            }
+            context += "* **Products Available:**\n";
+            context += `    * ${APP_DATA.products.items.map(i => `${i.name} (Approx. ₹${i.price.toLocaleString('en-IN')})`).join(', ')}\n`;
+            context += "* **(Note:** Prices are approximate. For exact pricing and booking, contact via WhatsApp.)\n";
+            return context;
+        }
+
+
+        // NEW GLOBAL STATE
+        let cart = []; // Stores objects like { type: 'product', item: {name: '...', price: ...}, quantity: 1 }
+        APP_DATA.lastPage = 'home'; // Tracks last list page for back button
+
+        // --- HOVER PREVIEW LOGIC & STATE (Moved up to fix ReferenceError) ---
+        let previewActive = false;
+
+        function updateHoverPreview(event, item) {
+            const previewBox = document.getElementById('category-preview');
+            const isDesktop = window.innerWidth >= 768;
+
+            if (!isDesktop || !previewBox) { // Added check for previewBox existence
+                if (previewBox) previewBox.classList.remove('show');
+                return;
+            }
+
+            if (item) {
+                // Determine if it's a menu link
+                if (item.isMenu) {
+                    previewBox.querySelector('#preview-title').textContent = item.name;
+                    previewBox.querySelector('#preview-content').innerHTML = `
+                         <p class="text-xs font-semibold text-accent mb-2">Explore Categories:</p>
+                         ${item.details.map(d => `<a href="#" onclick="showPage('services'); closeMobileMenu();" class="block text-dark hover:text-accent transition duration-150">${d}</a>`).join('')}
+                         <hr class="my-2 border-gray-200">
+                         <a href="#" onclick="showPage('products'); closeMobileMenu();" class="block text-dark hover:text-accent transition duration-150 font-bold">VIEW ALL</a>
+                     `;
+
+                    // Center the preview box horizontally
+                    const navRect = event.target.getBoundingClientRect();
+                    previewBox.style.left = `${navRect.left + navRect.width / 2}px`;
+                    previewBox.style.transform = `translateX(-50%)`;
+                    previewBox.style.top = `80px`; // Below fixed header
+                }
+
+                previewBox.classList.add('show');
+                previewActive = true;
+
+            } else if (previewActive) {
+                previewBox.classList.remove('show');
+                previewActive = false;
+            }
+        }
+
+        function attachHoverListeners() {
+            // Attach listeners to main nav links for Category Preview
+            const navLinks = [
+                { id: 'nav-services', name: 'Makeover Services', details: ['Bridal Makeup', 'Luxury Facial', 'HD Makeup', 'Keratin/Smoothening'], isMenu: true },
+                { id: 'nav-academy', name: 'Academy Courses', details: ['Basic Artistry', 'Advanced Bridal', 'Hair Styling'], isMenu: true },
+                { id: 'nav-shop', name: 'Beauty Products', details: ['Makeup Kits', 'HD Foundation', 'Brush Sets'], isMenu: true },
+            ];
+
+            navLinks.forEach(link => {
+                const element = document.getElementById(link.id);
+                if (element) {
+                    element.addEventListener('mouseenter', (e) => updateHoverPreview(e, link));
+                    element.addEventListener('mouseleave', () => updateHoverPreview(null, null));
+                }
+            });
+        }
+
+        // --- CART/CHECKOUT LOGIC ---
+
+        function findItemDetails(type, name) {
+            if (type === 'product') {
+                return APP_DATA.products.items.find(i => i.name === name);
+            }
+            // Check services
+            for (const key in APP_DATA.services) {
+                const item = APP_DATA.services[key].items.find(i => i.name === name);
+                if (item) return item;
+            }
+            // Check academy
+            for (const key in APP_DATA.academy) {
+                // Ensure academy has items array
+                if (APP_DATA.academy.items) {
+                    const item = APP_DATA.academy.items.find(i => i.name === name);
+                    if (item) return item;
+                }
+            }
+            return null;
+        }
+
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartButton = document.getElementById('cart-button');
+            if (cartButton) {
+                cartButton.textContent = `CART (${totalItems})`;
+
+                // --- Mobile/Desktop Cart Button Logic ---
+                const mobileCartButton = document.getElementById('mobile-cart-button');
+                cartButton.classList.toggle('hidden', totalItems === 0);
+                if (mobileCartButton) {
+                    mobileCartButton.textContent = `CART (${totalItems})`;
+                    mobileCartButton.classList.toggle('hidden', totalItems === 0);
+                }
+                // ----------------------------------------
+            }
+        }
+
+        function addToCart(type, name, price) {
+            const existingItem = cart.find(i => i.item.name === name && i.type === type);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                const itemDetails = findItemDetails(type, name);
+                if (itemDetails) {
+                    cart.push({ type: type, item: itemDetails, quantity: 1 });
+                } else {
+                    // Fallback for unexpected items
+                    cart.push({ type: type, item: { name, price, detail: 'Custom Item' }, quantity: 1 });
+                }
+            }
+
+            updateCartCount();
+            console.log('Cart updated:', cart);
+
+            // Simple notification (using window.alert which is allowed here for simple confirmation)
+            // Note: In production, we'd use a custom modal for this.
+            alert('Item added to cart! Total items: ' + cart.reduce((sum, item) => sum + item.quantity, 0));
+        }
+
+        function renderCheckoutModal() {
+            if (cart.length === 0) {
+                alert('Your cart is empty! Add products before checking out.');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.item.price * item.quantity), 0);
+
+            const cartSummary = cart.map(i =>
+                `<li class="flex justify-between text-sm text-dark border-b border-gray-200 py-1">
+                    <span>${i.item.name} (x${i.quantity})</span>
+                    <span>₹${(i.item.price * i.quantity).toLocaleString('en-IN')}</span>
+                </li>`
+            ).join('');
+
+            const modalHtml = `
+                <div id="checkout-modal-backdrop" class="fixed inset-0 z-[200] flex items-center justify-center bg-gray-900/70">
+                    <div class="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full border-4 border-accent" style="max-height: 90vh; overflow-y: auto;">
+                        <h3 class="text-3xl font-bold text-dark mb-4 section-heading">Checkout & Order</h3>
+                        
+                        <h4 class="text-xl font-semibold text-accent mb-3">Order Summary:</h4>
+                        <ul class="mb-4 space-y-2 p-3 bg-gray-100 rounded">
+                            ${cartSummary}
+                        </ul>
+                        <div class="flex justify-between text-lg font-bold border-t border-dark pt-2">
+                            <span>Total Amount:</span>
+                            <span class="text-accent">₹${total.toLocaleString('en-IN')}</span>
+                        </div>
+
+                        <h4 class="text-xl font-semibold text-accent mt-6 mb-3">Customer Details:</h4>
+                        <div class="space-y-4">
+                            <input type="text" id="checkout-name" placeholder="Full Name" class="w-full p-3 border border-gray-300 rounded focus:border-accent" required>
+                            <input type="tel" id="checkout-mobile" placeholder="Mobile Number (10 digits)" class="w-full p-3 border border-gray-300 rounded focus:border-accent" required>
+                            <textarea id="checkout-address" placeholder="Full Address (Street, City, Pin)" rows="3" class="w-full p-3 border border-gray-300 rounded resize-none focus:border-accent" required></textarea>
+                        </div>
+
+                        <div class="mt-6 flex justify-between space-x-3">
+                            <button onclick="document.getElementById('checkout-modal-backdrop').remove()" class="secondary-button px-4 py-2 text-sm">
+                                Cancel
+                            </button>
+                            <button class="primary-button px-4 py-2 text-sm" onclick="submitOrderToWhatsApp(${total})">
+                                Send Order & Details (WhatsApp)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Inject the modal into the body
+            const existingModal = document.getElementById('checkout-modal-backdrop');
+            if (existingModal) existingModal.remove();
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        function submitOrderToWhatsApp(totalAmount) {
+            const name = document.getElementById('checkout-name').value.trim();
+            const mobile = document.getElementById('checkout-mobile').value.trim();
+            const address = document.getElementById('checkout-address').value.trim();
+
+            if (!name || !mobile || mobile.length !== 10 || !address) {
+                alert('Please fill in your Full Name, 10-digit Mobile Number, and Address completely.');
+                return;
+            }
+
+            let orderDetails = "--- ORDER DETAILS ---\n";
+            cart.forEach(item => {
+                orderDetails += `Item: ${item.item.name} | Type: ${item.type.toUpperCase()} | Qty: ${item.quantity} | Price: ₹${(item.item.price * item.quantity).toLocaleString('en-IN')}\n`;
+            });
+            orderDetails += `Total Amount: ₹${totalAmount.toLocaleString('en-IN')}\n\n`;
+
+            const customerDetails = `--- CUSTOMER DETAILS ---\nName: ${name}\nMobile/WhatsApp: ${mobile}\nAddress: ${address}`;
+
+            const message = `Hello SJ Makeover, I have placed a new product order or booked a service plan.\n\n${orderDetails}${customerDetails}`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=91${APP_DATA.contactNumber}&text=${encodedMessage}`;
+
+            // Clear cart and close modal before redirect
+            cart = [];
+            updateCartCount();
+            const modalBackdrop = document.getElementById('checkout-modal-backdrop');
+            if (modalBackdrop) modalBackdrop.remove();
+
+            // Redirect to WhatsApp
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function renderDetailView(item, type) {
+            // Logic to render the detailed page/modal
+            const container = document.getElementById('main-container');
+            container.innerHTML = '';
+
+            const isService = (type === 'service' || type === 'academy');
+
+            // --- Robust review filtering ---
+            const nameParts = item.name.split(' ');
+            const firstWord = nameParts[0];
+            const secondWord = nameParts.length > 1 ? nameParts[1] : ''; // Use empty string for safety
+
+            const itemReviews = APP_DATA.reviews.filter(r => {
+                // Ensure review comment exists before calling includes
+                return r.comment && (r.comment.includes(firstWord) || (secondWord && r.comment.includes(secondWord)));
+            });
+
+
+            const reviewsHtml = itemReviews.map(review => `
+                <div class="p-4 border-b border-gray-100 last:border-b-0">
+                    <div class="flex items-center text-accent mb-1">
+                        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                        <span class="text-xs text-dark ml-2 font-semibold">${review.name}</span>
+                    </div>
+                    <p class="text-sm text-gray-700">${review.comment}</p>
+                </div>
+            `).join('');
+
+            const buyButtonText = isService ? 'Book Appointment' : 'Add to Cart';
+            // Escape item details for buyAction
+            const escapedName = escapeHtmlAttr(item.name);
+            const escapedDetail = escapeHtmlAttr(item.detail); // Escape detail too
+            const buyAction = isService ? `prepareWhatsApp('${type}', '${escapedName}', ${item.price})` : `addToCart('${type}', '${escapedName}', ${item.price})`;
+
+            const detailHtml = `
+                <div class="max-w-4xl mx-auto py-12 px-6 fade-in-section"> <!-- Added fade-in -->
+                    <button onclick="showPage(APP_DATA.lastPage)" class="text-sm text-gray-600 hover:text-dark mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        <span class="ml-1">Back to ${APP_DATA.lastPage.charAt(0).toUpperCase() + APP_DATA.lastPage.slice(1)}</span>
+                    </button>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white p-8 shadow-xl rounded-lg border border-gray-100">
+                        
+                        <!-- Image Placeholder -->
+                        <div>
+                            <div class="product-image-container mb-6" style="padding-top: 100%;">
+                                <div class="product-image-placeholder text-lg font-bold" style="background-color: var(--color-secondary-bg);">
+                                    [Image: ${item.name}]
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 text-center">Tanishq-style Product/Service Visualization</p>
+                            
+                            ${!isService ? `<button class="secondary-button mt-4 w-full py-2 text-sm" onclick="generateProductDescription('${escapedName}', '${escapedDetail}')"> <!-- Pass escaped detail -->
+                                ✨ Generate Luxury Copy (AI)
+                            </button>` : ''}
+                        </div>
+                        
+                        <!-- Details & Actions -->
+                        <div>
+                            <h2 class="text-4xl brand-title mb-4 text-dark">${item.name}</h2>
+                            <p class="text-gray-700 text-lg mb-6">${item.detail}</p>
+                            
+                            <div class="flex items-end justify-between border-t border-b border-gray-200 py-4 mb-8">
+                                <span class="text-sm uppercase text-gray-500">Price</span>
+                                <span class="text-4xl font-black text-accent">₹${item.price.toLocaleString('en-IN')}</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                 <button class="w-full primary-button py-3 text-lg" onclick="${buyAction}">
+                                    ${buyButtonText}
+                                </button>
+                                ${!isService ? `<button class="w-full secondary-button py-3 text-lg" onclick="renderCheckoutModal()">BUY NOW (Checkout)</button>` : ''}
+                                ${type === 'academy' ? `<button class="w-full secondary-button py-3 text-lg" onclick="generateEnrollmentMessage('${escapedName}', '${escapedDetail}')"> <!-- Pass escaped detail -->
+                                    ✍️ Draft Enrollment Message (AI)
+                                </button>` : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews Section -->
+                    <div class="mt-12">
+                        <h3 class="text-2xl section-heading mb-6">Customer Reviews (${itemReviews.length})</h3>
+                        <div class="bg-white rounded-lg shadow-md border border-gray-100">
+                            ${reviewsHtml || '<p class="p-4 text-gray-500">No specific reviews for this item. Check out our others!</p>'}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += detailHtml;
+            // Trigger fade-in after adding to DOM
+            setTimeout(() => {
+                const sections = container.querySelectorAll('.fade-in-section');
+                sections.forEach(sec => sec.classList.add('is-visible'));
+            }, 50);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+
+        // --- CORE NAVIGATION/RENDER FUNCTIONS ---
+
+        // --- HERO SLIDER LOGIC ---
+        let sliderInterval;
+        let slideIndex = 0;
+        const slideCount = 3;
+
+        function moveSlider(n) {
+            const wrapper = document.getElementById('hero-slider-wrapper');
+            const dots = document.querySelectorAll('.dot');
+
+            if (!wrapper) {
+                clearInterval(sliderInterval);
+                return;
+            }
+
+            // If navigating manually, reset interval
+            if (typeof n !== 'undefined' && n !== 1) { // Check if n is defined and not the auto-increment
+                slideIndex = n; // Set index directly if coming from dot click
+                resetSliderInterval();
+            } else {
+                slideIndex = (slideIndex + 1 + slideCount) % slideCount; // Auto-increment
+            }
+
+            wrapper.style.transform = `translateX(-${slideIndex * (100 / slideCount)}%)`;
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === slideIndex);
+            });
+        }
+
+
+        function initSlider() {
+            const dots = document.querySelectorAll('.dot');
+            if (dots.length > 0) {
+                dots[0].classList.add('active');
+
+                dots.forEach((dot, index) => { // Add index here
+                    dot.addEventListener('click', () => {
+                        moveSlider(index); // Pass the target index directly
+                    });
+                });
+            }
+
+            resetSliderInterval(); // Start automatic sliding
+        }
+
+
+        function resetSliderInterval() {
+            clearInterval(sliderInterval);
+            sliderInterval = setInterval(() => moveSlider(1), 5000); // 5 seconds interval
+        }
+
+        function renderHeroSlider() {
+            const slides = [
+                { title: "The Bridal Edit", subtitle: "Crafting Perfection for Your Big Day", cta: "View Bridal Packages", page: 'services', img: 'https://placehold.co/1920x450/C49B65/FFFFFF?text=Image:+Bridal+Luxury+Banner' },
+                { title: "Begin Your Mastery", subtitle: "Lakmé Certified Beauty Courses Now Enrolling", cta: "Explore Academy", page: 'academy', img: 'https://placehold.co/1920x450/2C0A0A/C49B65?text=Image:+Academy+Enrollment+Banner' },
+                { title: "HD Makeup Collection", subtitle: "Flawless Products for Camera-Ready Looks", cta: "Shop Now", page: 'products', img: 'https://placehold.co/1920x450/F8F8F8/2C0A0A?text=Image:+HD+Products+Banner' },
+            ];
+
+            let slidesHtml = '';
+            slides.forEach((slide, index) => {
+                slidesHtml += `
+                    <div class="hero-slide" style="background-image: url('${slide.img}')">
+                        <div class="slide-content px-4">
+                            <p class="text-white text-sm mb-2 uppercase font-semibold">${slide.subtitle}</p>
+                            <h2 class="text-5xl md:text-6xl font-black text-white brand-title mb-6" style="text-shadow: 2px 2px 4px #000;">${slide.title}</h2>
+                            <button class="primary-button px-6 py-3 text-lg font-bold shadow-lg"
+                                    onclick="showPage('${slide.page}')">
+                                ${slide.cta}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            let dotsHtml = '<div class="slider-dots">';
+            slides.forEach((_, index) => {
+                dotsHtml += `<span class="dot" data-index="${index}"></span>`; // Add data-index for clicking
+            });
+            dotsHtml += '</div>';
+
+            return `
+                <div class="hero-slider-container">
+                    <div class="hero-slider-wrapper" id="hero-slider-wrapper">
+                        ${slidesHtml}
+                    </div>
+                    ${dotsHtml}
+                </div>
+            `;
+        }
+
+        // --- UTILITY TO ESCAPE HTML ATTRIBUTES ---
+        function escapeHtmlAttr(str) {
+            if (!str) return '';
+            // Escape single quotes, double quotes, and backticks for safety in JS strings
+            return str.replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/`/g, "\\`");
+        }
+
+
+        function generateProductCard(item, type) {
+            const escapedName = escapeHtmlAttr(item.name);
+            const escapedDetail = escapeHtmlAttr(item.detail);
+
+            // Constructing the item object string for onclick
+            const itemJsonString = JSON.stringify({ name: item.name, detail: item.detail, price: item.price }).replace(/'/g, "\\'");
+
+
+            return `
+                <div class="card w-full rounded-sm hover:border-accent/50 cursor-pointer" onclick='renderDetailView(${itemJsonString}, "${type}")'>
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder text-xs">Image: ${item.name} (${item.price.toLocaleString('en-IN')})</div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="text-sm font-semibold text-dark mb-1">${item.name}</h4>
+                        <p class="text-xs text-gray-500 mb-2">${item.detail.substring(0, 40)}...</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-base font-bold text-accent">₹${item.price.toLocaleString('en-IN')}</span>
+                            <button class="primary-button text-xs px-3 py-1"
+                                    onclick="event.stopPropagation(); addToCart('${type}', '${escapedName}', ${item.price})">
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSectionHeader(title, subtitle) {
+            return `
+                <div class="text-center mb-12 fade-in-section"> <!-- Added fade-in -->
+                    <h2 class="text-4xl section-heading mb-2">${title}</h2>
+                    <p class="text-base text-gray-600">${subtitle}</p>
+                </div>
+            `;
+        }
+
+        // --- NEW: Render Inquiry Form ---
+        function renderInquiryForm(pageTitle) {
+            return `
+                 <div class="mt-12 pt-12 border-t border-gray-200 fade-in-section"> <!-- Added fade-in -->
+                    <h3 class="text-2xl section-heading mb-6 text-center">Send an Inquiry</h3>
+                    <div class="max-w-xl mx-auto inquiry-form p-6 bg-white rounded-lg shadow-md border border-gray-100">
+                        <label for="page-form-name">Full Name*</label>
+                        <input type="text" id="page-form-name" placeholder="Enter your full name" required>
+
+                        <label for="page-form-phone">Mobile Number* (10 digits)</label>
+                        <input type="tel" id="page-form-phone" placeholder="Enter your mobile number" required pattern="[0-9]{10}">
+
+                        <label for="page-form-address">City / Address (Optional)</label>
+                        <input type="text" id="page-form-address" placeholder="Enter your city or full address">
+
+                        <label for="page-form-query">Your Interest / Query</label>
+                        <textarea id="page-form-query" rows="4" placeholder="Tell us what you're interested in..."></textarea>
+
+                        <button class="primary-button w-full mt-4" onclick="submitPageFormToWhatsApp('${pageTitle}')">
+                            SEND INQUIRY (via WhatsApp)
+                        </button>
+                        <p class="text-xs text-gray-500 mt-2 text-center">* Required fields</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- NEW: Render Testimonials Section ---
+        function renderTestimonialsSection() {
+            const reviewsHtml = APP_DATA.reviews.slice(0, 3).map(review => `
+                <div class="card p-6 text-center bg-secondary-bg">
+                    <div class="flex items-center justify-center text-accent mb-3">
+                        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                    </div>
+                    <p class="text-base text-gray-700 italic mb-4">"${review.comment}"</p>
+                    <p class="text-sm font-semibold text-dark">- ${review.name}</p>
+                </div>
+            `).join('');
+
+            return `
+                <section class="bg-white fade-in-section"> <!-- Added fade-in -->
+                    <div class="max-w-7xl mx-auto py-16 px-6">
+                        ${renderSectionHeader('What Our Clients Say', 'Experience the luxury and professionalism firsthand.')}
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            ${reviewsHtml}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+
+        function updateContent(page) {
+            const container = document.getElementById('main-container');
+            container.innerHTML = ''; // Clear existing content
+
+            const wrapperStart = `<div class="max-w-7xl mx-auto py-16 px-6">`;
+            const wrapperEnd = `</div>`;
+
+            switch (page) {
+                case 'home':
+                    APP_DATA.lastPage = 'home';
+                    container.innerHTML += renderHeroSlider(); // Slider is rendered first
+                    // Add other sections after the slider
+                    container.innerHTML += `
+                        <section class="bg-white fade-in-section"> <!-- Added fade-in -->
+                            ${wrapperStart}
+                                ${renderSectionHeader('Featured Collections', 'Explore our top-rated makeover and beauty plans.')}
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                    <!-- Category Banners -->
+                                    <div class="h-64 rounded overflow-hidden relative group cursor-pointer" onclick="showPage('services')">
+                                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://placehold.co/800x600/C49B65/2C0A0A?text=Image:+Bridal+Look');"></div>
+                                        <div class="absolute inset-0 bg-black/40 flex items-end p-6"><h3 class="text-2xl font-bold text-white section-heading">Bridal Makeup</h3></div>
+                                    </div>
+                                    <div class="h-64 rounded overflow-hidden relative group cursor-pointer" onclick="showPage('academy')">
+                                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://placehold.co/800x600/2C0A0A/C49B65?text=Image:+Academy+Students');"></div>
+                                        <div class="absolute inset-0 bg-black/40 flex items-end p-6"><h3 class="text-2xl font-bold text-white section-heading">Certified Academy</h3></div>
+                                    </div>
+                                    <div class="h-64 rounded overflow-hidden relative group cursor-pointer" onclick="showPage('products')">
+                                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://placehold.co/800x600/F8F8F8/2C0A0A?text=Image:+HD+Products');"></div>
+                                        <div class="absolute inset-0 bg-black/40 flex items-end p-6"><h3 class="text-2xl font-bold text-white section-heading">Shop Products</h3></div>
+                                    </div>
+                                </div>
+                            ${wrapperEnd}
+                        </section>`;
+                    container.innerHTML += renderTestimonialsSection(); // Add Testimonials
+                    container.innerHTML += `
+                        <section class="bg-secondary-bg fade-in-section"> <!-- Added fade-in -->
+                            ${wrapperStart}
+                                ${renderSectionHeader('Bestselling Products', 'Essentials for the perfect look.')}
+                                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                                    ${APP_DATA.products.items.slice(0, 5).map(item => generateProductCard(item, 'product')).join('')}
+                                </div>
+                            ${wrapperEnd}
+                        </section>`;
+                    initSlider(); // Initialize slider after rendering
+                    break;
+
+                case 'services':
+                    APP_DATA.lastPage = 'services';
+                    container.innerHTML += `
+                        <section class="bg-white fade-in-section"> <!-- Added fade-in -->
+                            ${wrapperStart}
+                                ${renderSectionHeader('Our Premium Makeover Services', 'Book your next luxury beauty appointment in Lucknow.')}
+                                <div class="text-center mb-10">
+                                     <button class="primary-button px-8 py-3 text-lg font-bold shadow-lg"
+                                            onclick="openServicePlanModal()">
+                                        ✨ Get Personalized Service Plan
+                                    </button>
+                                </div>
+                                
+                                <div class="space-y-12">
+                                    ${Object.keys(APP_DATA.services).map(categoryKey => {
+                        const category = APP_DATA.services[categoryKey];
+                        return `
+                                            <div class="border-b pb-8 border-gray-200 last:border-b-0">
+                                                <h3 class="text-3xl font-bold text-accent mb-6">${category.title}</h3>
+                                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                                                    ${category.items.map(item => {
+                            const itemJsonString = JSON.stringify({ name: item.name, detail: item.detail, price: item.price }).replace(/'/g, "\\'");
+                            const escapedName = escapeHtmlAttr(item.name);
+                            return `
+                                                            <div class="card p-4 cursor-pointer" onclick='renderDetailView(${itemJsonString}, "service")'>
+                                                                <h4 class="text-lg font-bold text-dark mb-1">${item.name}</h4>
+                                                                <p class="text-sm text-gray-500 mb-4">${item.detail}</p>
+                                                                <div class="flex justify-between items-center">
+                                                                    <span class="text-base font-bold text-accent">₹${item.price.toLocaleString('en-IN')}</span>
+                                                                    <button class="primary-button text-sm px-4 py-2"
+                                                                            onclick="event.stopPropagation(); prepareWhatsApp('service', '${escapedName}', ${item.price})">
+                                                                        BOOK
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        `;
+                        }).join('')}
+                                                </div>
+                                            </div>
+                                        `;
+                    }).join('')}
+                                </div>
+                            ${wrapperEnd}
+                        </section>
+                    `;
+                    break;
+
+
+                case 'products':
+                    APP_DATA.lastPage = 'products';
+                    container.innerHTML += `
+                        <section class="bg-secondary-bg fade-in-section"> <!-- Added fade-in -->
+                            ${wrapperStart}
+                                ${renderSectionHeader('Shop All Exclusive Products', 'Professional-grade makeup, tools, and hair care kits.')}
+                                
+                                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                                    ${APP_DATA.products.items.map(item => generateProductCard(item, 'product')).join('')}
+                                </div>
+                            ${wrapperEnd}
+                        </section>
+                    `;
+                    break;
+
+
+                case 'academy':
+                    APP_DATA.lastPage = 'academy';
+                    container.innerHTML += `
+                        <section class="bg-white fade-in-section"> <!-- Added fade-in -->
+                            ${wrapperStart}
+                                ${renderSectionHeader('Lakmé Certified Academy Courses', 'Kickstart your professional career with our certified courses.')}
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    ${APP_DATA.academy.items.map(item => {
+                        const itemJsonString = JSON.stringify({ name: item.name, detail: item.detail, price: item.price }).replace(/'/g, "\\'");
+                        const escapedName = escapeHtmlAttr(item.name);
+                        return `
+                                            <div class="card p-4 cursor-pointer" onclick='renderDetailView(${itemJsonString}, "academy")'>
+                                                <h4 class="text-lg font-bold text-dark mb-1">${item.name}</h4>
+                                                <p class="text-sm text-gray-500 mb-4">${item.detail}</p>
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-base font-bold text-accent">₹${item.price.toLocaleString('en-IN')}</span>
+                                                    <button class="primary-button text-sm px-4 py-2"
+                                                            onclick="event.stopPropagation(); prepareWhatsApp('academy', '${escapedName}', ${item.price})">
+                                                        ENROLL
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        `;
+                    }).join('')}
+                                </div>
+
+                                <div class="mt-12 text-center">
+                                    <button id="generate-career-path" class="secondary-button px-8 py-3 text-lg font-bold"
+                                            onclick="generateCareerPath()">
+                                        ✨ Generate AI Career Path
+                                    </button>
+                                    <div id="career-path-result" class="mt-6 max-w-xl mx-auto text-dark text-sm p-4 bg-gray-100 rounded border border-gray-300">
+                                         <p class="text-sm text-gray-500">Click 'Generate AI Career Path' to see a personalized two-step course recommendation and earning potential.</p>
+                                    </div>
+                                </div>
+
+                            ${wrapperEnd}
+                        </section>
+                    `;
+                    break;
+
+
+                case 'contact':
+                    APP_DATA.lastPage = 'contact';
+                    container.innerHTML += `
+                        <section class="bg-white fade-in-section"> <!-- Added fade-in -->
+                            ${wrapperStart}
+                                ${renderSectionHeader('Contact Information', 'Reach out to us for bookings, inquiries, and support.')}
+                                
+                                <div class="max-w-xl mx-auto space-y-8 p-8 bg-secondary-bg rounded-lg shadow-inner">
+                                    <!-- Contact Details (Location, Phone, Social) -->
+                                    <div class="flex items-start space-x-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent min-w-[24px] mt-1"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        <div><h3 class="text-xl font-bold text-dark section-heading mb-1">Our Location</h3><p class="text-gray-700">Pandit Deen Dayal Upadhyay Nagar, Near Mahamna Shiv Mandir, Sai Data Road, Arjunganj, Lucknow - 226002</p></div>
+                                    </div>
+                                    <div class="flex items-start space-x-4">
+                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent min-w-[24px] mt-1"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                        <div class="w-full">
+                                            <h3 class="text-xl font-bold text-dark section-heading mb-2">Call / WhatsApp</h3>
+                                            <p class="text-dark font-semibold text-lg mb-3">+91 ${APP_DATA.contactNumber}</p>
+                                            <a href="https://api.whatsapp.com/send?phone=91${APP_DATA.contactNumber}&text=Hello SJ Makeover, I have a general query. Please assist me." target="_blank" class="primary-button w-full sm:w-auto block px-6 py-3 text-sm font-bold text-center">Chat with us on WhatsApp</a>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent min-w-[24px] mt-1"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                                        <div>
+                                            <h3 class="text-xl font-bold text-dark section-heading mb-1">Follow Us</h3>
+                                            <p class="text-gray-700">Instagram: <a href="${APP_DATA.instagramUrl}" target="_blank" class="text-accent hover:underline">${APP_DATA.instagramHandle}</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Inquiry Form -->
+                                ${renderInquiryForm('Contact')} 
+
+                            ${wrapperEnd}
+                        </section>
+                    `;
+                    break;
+
+
+                // --- ADDED PLACEHOLDER PAGES ---
+                case 'about':
+                case 'career':
+                    APP_DATA.lastPage = 'home'; // Default back button target
+                    const pageTitle = page.charAt(0).toUpperCase() + page.slice(1);
+                    container.innerHTML += `
+                        <section class="bg-white fade-in-section"> <!-- Added fade-in -->
+                            ${wrapperStart}
+                                ${renderSectionHeader(`${pageTitle}`, `Learn more about SJ Makeover & Academy.`)}
+                                <div class="text-left p-10 bg-secondary-bg rounded-lg max-w-3xl mx-auto prose prose-lg prose-headings:font-playfair prose-headings:text-dark prose-p:text-gray-700"> <!-- Using Tailwind Prose for better text formatting -->
+                                    ${page === 'about' ?
+                            `<h2>Our Story</h2>
+                                         <p>Welcome to SJ Makeover & Academy, Lucknow's premier destination for luxury beauty services and professional training. Certified by the prestigious Lakmé Academy, we are deeply committed to the art of transformation and the pursuit of excellence.</p>
+                                         <h2>Our Philosophy</h2>
+                                         <p>We believe in enhancing natural beauty through meticulous techniques and the use of only the highest quality, professional-grade products. Our approach combines classic elegance with modern trends, ensuring every client leaves feeling confident and radiant.</p>
+                                         <h2>Why Choose Us?</h2>
+                                         <ul>
+                                            <li><strong>Lakmé Certified:</strong> Assurance of industry-leading standards.</li>
+                                            <li><strong>Expert Team:</strong> Passionate and highly skilled artists and trainers.</li>
+                                            <li><strong>Luxury Experience:</strong> A pampering environment focused on your comfort.</li>
+                                            <li><strong>Quality Products:</strong> We use only trusted, premium brands.</li>
+                                         </ul>
+                                         <p>Whether you seek a stunning makeover for a special occasion or aspire to become a certified beauty professional, we provide unparalleled quality, personalized attention, and expert guidance.</p>` :
+                            /* page === 'career' */
+                            `<h2>Join Our Elite Team</h2>
+                                         <p>SJ Makeover & Academy is expanding, and we are looking for passionate, talented individuals who share our dedication to luxury beauty and exceptional client service. If you are driven, creative, and eager to grow in a professional environment, explore our current opportunities.</p>
+                                         <h3>Current Openings:</h3>
+                                          <ul>
+                                             <li><strong>Senior Bridal Makeup Artist:</strong> Requires Lakmé certification or equivalent, minimum 3 years' experience with diverse bridal styles (Traditional, HD, Airbrush). Portfolio essential.</li>
+                                             <li><strong>Expert Hair Stylist:</strong> Proficient in advanced cutting, coloring (Global, Balayage), and chemical treatments (Keratin, Smoothening). Minimum 2 years' salon experience.</li>
+                                             <li><strong>Academy Instructor (Makeup/Hair):</strong> Certified professional with a passion for teaching. Excellent communication skills and prior training experience preferred.</li>
+                                             <li><strong>Salon Manager/Client Coordinator:</strong> Experienced in managing salon operations, appointments, inventory, and ensuring a premium client experience. Strong organizational skills required.</li>
+                                         </ul>
+                                         <h3>How to Apply:</h3>
+                                         <p>Interested candidates are invited to send their updated resume, a cover letter detailing their suitability, and a portfolio (for artist/stylist roles) via WhatsApp using the button on our Contact page or by submitting the inquiry form below.</p>
+                                         ${renderInquiryForm('Career Application')} <!-- Added specific form for career page -->
+                                         `
+                        }
+                                     ${page !== 'career' ? `<button class="primary-button no-prose px-6 py-3 font-bold mt-6" onclick="showPage('contact')">Contact Us</button>` : ''} <!-- Add Contact Us button unless it's the career page with its own form -->
+                                </div>
+                            ${wrapperEnd}
+                        </section>
+                    `;
+                    break;
+
+
+                default:
+                    updateContent('home'); // Fallback to home page
+                    return;
+            }
+            // Trigger fade-in after adding to DOM
+            setTimeout(() => {
+                const sections = container.querySelectorAll('.fade-in-section');
+                sections.forEach(sec => sec.classList.add('is-visible'));
+            }, 50); // Small delay
+
+            // Re-attach hover listeners if the page contains elements that need them
+            if (['home', 'services', 'academy', 'products'].includes(page)) {
+                attachHoverListeners();
+            }
+        }
+
+
+        /**
+         * Page Navigation Logic
+         */
+        function showPage(pageId) {
+            updateContent(pageId);
+            updateCartCount();
+            closeMobileMenu(); // Ensure mobile menu closes on navigation
+
+            // Hide chatbot if visible and not explicitly opened
+            const chatWindow = document.getElementById('chat-window');
+            if (chatWindow && chatWindow.style.display === 'flex') {
+                // Check if the click was on the chatbot button itself OR within the chat window
+                const target = event ? event.target.closest('#chatbot-button, #chat-window') : null;
+                if (!target) { // If click was outside chat elements
+                    // Check if chat window is actually open before trying to close
+                    if (!chatWindow.classList.contains('hidden')) {
+                        toggleChat(); // Close if navigation wasn't triggered by chat interaction
+                    }
+                }
+            }
+
+
+            // Ensure content scrolls to top (only necessary for SPA navigation)
+            const mainContainer = document.getElementById('main-container');
+            if (mainContainer) {
+                mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // --- WHATSAPP / CHATBOT / GEMINI FUNCTIONS ---
+        function prepareWhatsApp(type, item, price) {
+            let message = "";
+            const priceStr = price > 0 ? ` (Approx. ₹${price.toLocaleString('en-IN')})` : ''; // Added Approx.
+            if (type === 'service' || type === 'pricing') {
+                message = `Hello SJ Makeover, I'm interested in booking the service: *${item}*${priceStr}. Please provide availability and confirm the details.`;
+            } else if (type === 'academy') {
+                message = `Hello SJ Academy, I'd like to know more about your course: *${item}*${priceStr}. Please share curriculum details and start dates.`;
+            } else if (type === 'product') {
+                message = `Hello SJ Makeover, I want to inquire about/order the product: *${item}*${priceStr}. Please guide me.`;
+            } else { // General fallback
+                message = `Hello SJ Makeover, I have a general query regarding "${item || 'your services'}". Please assist.`;
+            }
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=91${APP_DATA.contactNumber}&text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+
+        function submitPageFormToWhatsApp(pageTitle) {
+            const nameInput = document.getElementById('page-form-name');
+            const phoneInput = document.getElementById('page-form-phone');
+            const addressInput = document.getElementById('page-form-address');
+            const queryInput = document.getElementById('page-form-query');
+
+            const name = nameInput?.value.trim();
+            const phone = phoneInput?.value.trim();
+            const address = addressInput?.value.trim();
+            const query = queryInput?.value.trim() || 'No specific query provided.';
+
+            if (!name || !phone || !/^\d{10}$/.test(phone)) { // Simple 10-digit validation
+                alert('Please fill in your Full Name and a correct 10-digit Mobile Number.');
+                return;
+            }
+
+            let message = `Hello SJ Makeover & Academy,\n\nI am submitting an inquiry from the *${pageTitle}* page.\n\n--- Customer Details ---\nName: ${name}\nPhone/WhatsApp: ${phone}\nAddress/City: ${address || 'Not provided'}\nInterest/Query: ${query}\n`;
+
+            // Add specific subject for career applications
+            if (pageTitle === 'Career Application') {
+                message = `Hello SJ Makeover & Academy,\n\nI am applying for a position via the *Careers* page.\n\n--- Applicant Details ---\nName: ${name}\nPhone/WhatsApp: ${phone}\nAddress/City: ${address || 'Not provided'}\nApplying For / Query: ${query}\n\nPlease let me know the next steps for submitting my resume/portfolio.`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=91${APP_DATA.contactNumber}&text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+
+            // Clear form fields
+            if (nameInput) nameInput.value = '';
+            if (phoneInput) phoneInput.value = '';
+            if (addressInput) addressInput.value = '';
+            if (queryInput) queryInput.value = '';
+        }
+
+
+        // --- CHATBOT TOGGLE FIX ---
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            const chatHistory = document.getElementById('chat-history');
+            const isCurrentlyHidden = chatWindow.classList.contains('hidden');
+
+            if (isCurrentlyHidden) {
+                chatWindow.classList.remove('hidden');
+                chatWindow.style.display = 'flex'; // Use flex for layout
+                // Delay scroll slightly to ensure elements are rendered
+                setTimeout(() => {
+                    if (chatHistory) {
+                        chatHistory.scrollTop = chatHistory.scrollHeight;
+                    }
+                    const input = document.getElementById('user-input');
+                    if (input) input.focus();
+                }, 50);
+            } else {
+                chatWindow.classList.add('hidden');
+                // Use timeout to allow fade-out animation before setting display none
+                setTimeout(() => {
+                    // Check again if it should be hidden before setting display none
+                    if (chatWindow.classList.contains('hidden')) {
+                        chatWindow.style.display = 'none';
+                    }
+                }, 300);
+            }
+        }
+
+        // --- ADD MESSAGE & WHATSAPP FALLBACK ---
+        function addMessage(text, role, query = null) { // Added optional query param
+            const history = document.getElementById('chat-history');
+            if (!history) return;
+
+            const container = document.createElement('div');
+            container.classList.add('message-container', role === 'user' ? 'justify-end' : 'justify-start', 'flex', 'w-full', 'mb-2');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add(role === 'user' ? 'message-user' : 'message-bot', 'p-2', 'max-w-[75%]', 'text-sm', 'my-1', 'shadow-sm');
+            messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+
+            // --- WhatsApp Fallback Logic ---
+            if (role === 'bot' && text.includes("don't have that specific detail") && query) {
+                const fallbackText = "Mujhe iski jaankari nahi mil rahi hai. Kya aap yeh sawal WhatsApp par puchhna chahenge?";
+                const encodedQuery = encodeURIComponent(`Hello SJ Makeover, I asked the chat assistant: "${query}", but it couldn't provide the detail. Can you please help?`);
+                const whatsappUrl = `https://api.whatsapp.com/send?phone=91${APP_DATA.contactNumber}&text=${encodedQuery}`;
+
+                messageDiv.innerHTML = `${fallbackText}<br><a href="${whatsappUrl}" target="_blank" class="whatsapp-fallback">Ask on WhatsApp</a>`;
+            }
+            // -----------------------------
+
+            container.appendChild(messageDiv);
+            history.appendChild(container);
+            setTimeout(() => { history.scrollTop = history.scrollHeight; }, 0);
+        }
+
+
+
+        async function sendMessage() {
+            const inputElement = document.getElementById('user-input');
+            const query = inputElement.value.trim(); // User's original question
+            const loadingIndicator = document.getElementById('loading-indicator');
+
+            if (query === "") return;
+
+            addMessage(query, 'user');
+            inputElement.value = '';
+
+            chatHistory.push({ role: "user", parts: [{ text: query }] });
+
+            if (loadingIndicator) loadingIndicator.classList.remove('hidden');
+            inputElement.disabled = true;
+
+            // --- Construct Full Prompt with Context ---
+            const currentContext = generateChatbotContext();
+            const fullSystemPrompt = systemPromptBase + currentContext;
+            // ----------------------------------------
+
+            try {
+                // --- Use updated prompt ---
+                const responseText = await getGeminiResponse(chatHistory, fullSystemPrompt);
+
+                // --- Pass original query to addMessage for fallback check ---
+                addMessage(responseText, 'bot', query);
+                chatHistory.push({ role: "model", parts: [{ text: responseText }] });
+
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                addMessage("I am sorry, Ma'am/Sir. I couldn't connect to the Assistant. Please contact us on WhatsApp: +91 6387055325.", 'bot');
+            } finally {
+                if (loadingIndicator) loadingIndicator.classList.add('hidden');
+                inputElement.disabled = false;
+                inputElement.focus();
+            }
+        }
+
+
+        async function getGeminiResponse(contents, systemInstruction, maxRetries = 3) {
+            // Ensure systemInstruction is structured correctly
+            const payload = {
+                contents: contents,
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+
+            // Exponential backoff retry logic
+            let lastError = null;
+            for (let attempt = 0; attempt < maxRetries; attempt++) {
+                if (attempt > 0) {
+                    const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000; // Add jitter
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+                try {
+                    const response = await fetch(geminiApiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+                    if (response.status === 429 || response.status >= 500) { // Retry on rate limit or server errors
+                        console.warn(`Gemini API returned status ${response.status}, retrying...`);
+                        lastError = new Error(`API returned status ${response.status}`);
+                        continue; // Go to next attempt
+                    }
+                    if (!response.ok) { // Non-retryable client errors (e.g., 400 Bad Request)
+                        lastError = new Error(`API returned status ${response.status}`);
+                        console.error("Non-retryable Gemini API error:", await response.text());
+                        break; // Don't retry client errors like 400
+                    }
+
+                    const result = await response.json();
+
+                    // --- Enhanced Safety and Content Checks ---
+                    if (!result) {
+                        lastError = new Error("Received empty response body from Gemini.");
+                        continue; // Should not happen with OK status, but good to check
+                    }
+
+                    const promptFeedback = result.promptFeedback;
+                    if (promptFeedback && promptFeedback.blockReason) {
+                        console.error('Gemini prompt blocked:', promptFeedback.blockReason, promptFeedback.safetyRatings);
+                        return `I'm sorry, I cannot process that request due to safety guidelines (${promptFeedback.blockReason}).`;
+                    }
+
+                    if (!result.candidates || result.candidates.length === 0) {
+                        if (promptFeedback && promptFeedback.blockReason) { // Check feedback again if no candidates
+                            return `I cannot provide a response due to safety policies (${promptFeedback.blockReason}).`;
+                        }
+                        lastError = new Error("No candidates received from Gemini.");
+                        continue; // Retry if no candidates without a block reason
+                    }
+
+                    const candidate = result.candidates[0];
+                    // Check candidate finish reason and safety ratings
+                    if (candidate.finishReason && candidate.finishReason !== 'STOP') {
+                        console.warn('Gemini response incomplete or blocked:', candidate.finishReason, candidate.safetyRatings);
+                        if (candidate.finishReason === 'SAFETY') {
+                            return "I generated a response, but it was blocked due to safety concerns.";
+                        }
+                        // For other reasons like MAX_TOKENS, etc., maybe allow retry or return partial if possible
+                        lastError = new Error(`Candidate finish reason: ${candidate.finishReason}`);
+                        continue; // Retry if response wasn't stopped properly (unless SAFETY)
+                    }
+
+                    if (!candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
+                        lastError = new Error("Received empty content part from Gemini candidate.");
+                        continue; // Retry if content is missing
+                    }
+
+                    const text = candidate.content.parts[0].text;
+                    if (typeof text === 'string') { // Check if text is a string
+                        return text; // SUCCESS
+                    } else {
+                        lastError = new Error("Received non-string text from Gemini.");
+                        continue; // Retry if text isn't a string
+                    }
+                    // --- End Enhanced Checks ---
+
+                } catch (e) {
+                    console.error(`Gemini API fetch error on attempt ${attempt + 1}:`, e);
+                    lastError = e; // Store the error
+                    // Don't retry on network errors immediately unless sure it's transient
+                    // For simplicity here, we continue the loop for exponential backoff
+                }
+            }
+            // If loop finishes without returning, throw the last known error
+            console.error("Failed to get response from Gemini after all retries.", lastError);
+            throw lastError || new Error("Failed to get response from Gemini after all retries.");
+        }
+
+
+
+        function openAIModal(title, isLoading) {
+            const modal = document.getElementById('ai-output-modal');
+            const loading = document.getElementById('ai-loading');
+            const resultContent = document.getElementById('ai-result-content');
+            const modalTitle = document.getElementById('ai-modal-title');
+
+            if (title) modalTitle.textContent = title;
+
+            if (isLoading) {
+                loading.classList.remove('hidden');
+                resultContent.classList.add('hidden');
+                resultContent.textContent = '';
+                modal.classList.add('flex');
+                modal.classList.remove('hidden');
+            } else {
+                loading.classList.add('hidden');
+                resultContent.classList.remove('hidden');
+                modal.classList.add('flex');
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeAIModal() {
+            document.getElementById('ai-output-modal').classList.add('hidden');
+            document.getElementById('ai-output-modal').classList.remove('flex');
+        }
+
+        function copyToClipboardAndCloseModal() {
+            const content = document.getElementById('ai-result-content').textContent;
+
+            // Use Clipboard API if available (more modern, works in secure contexts)
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(content).then(() => {
+                    showCopyFeedback();
+                }).catch(err => {
+                    console.error('Failed to copy using Clipboard API:', err);
+                    // Fallback to execCommand
+                    fallbackCopy(content);
+                });
+            } else {
+                // Fallback for older browsers or insecure contexts
+                fallbackCopy(content);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            tempInput.style.position = 'absolute';
+            tempInput.style.left = '-9999px'; // Move off-screen
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopyFeedback();
+                } else {
+                    console.error('Fallback copy command failed.');
+                    alert('Copy failed. Please copy manually.'); // Simple alert
+                }
+            } catch (err) {
+                console.error('Error during fallback copy:', err);
+                alert('Copy failed. Please copy manually.'); // Simple alert
+            } finally {
+                document.body.removeChild(tempInput);
+            }
+        }
+
+        function showCopyFeedback() {
+            const modalTitle = document.getElementById('ai-modal-title');
+            const originalTitle = modalTitle.textContent;
+            modalTitle.textContent = 'Copied to Clipboard! 🎉';
+
+            setTimeout(() => {
+                modalTitle.textContent = originalTitle;
+                closeAIModal();
+            }, 1000);
+        }
+
+        async function generateProductDescription(productName, productDetail) {
+            openAIModal(`✨ Luxury Description for: ${productName}`, true);
+            const prompt = `You are a world-class marketer for a luxury beauty brand (SJ Makeover & Academy). Write a single, compelling, 40-word marketing description for the following product. Focus on luxury, transformation, and high quality. The description must be in English. Product Name: ${productName} Product Detail: ${productDetail}. Ensure the output is only the description text.`;
+            try {
+                const responseText = await getGeminiResponse([{ parts: [{ text: prompt }] }], "You are a world-class luxury beauty marketer.", 3);
+                document.getElementById('ai-result-content').textContent = responseText;
+            } catch (e) {
+                document.getElementById('ai-result-content').textContent = 'Error: Failed to generate description. Please check the network.';
+                console.error("Error generating product description:", e);
+            } finally {
+                openAIModal(null, false);
+            }
+        }
+
+        async function generateEnrollmentMessage(courseName, courseDetail) {
+            openAIModal(`✨ Draft Enrollment Message for: ${courseName}`, true);
+            const prompt = `You are an academy advisor helping a student draft a professional WhatsApp message. Write a concise, polite, and formal message (max 3 short sentences) for the student to send to the academy to inquire about the following course. The message should express excitement and ask for curriculum, fees, and next steps. The output must be ready to copy and paste. Course Name: ${courseName} Course Detail: ${courseDetail}. Ensure the message is in professional English and starts with "Dear SJ Academy Team,". The output must be only the message text.`;
+            try {
+                const responseText = await getGeminiResponse([{ parts: [{ text: prompt }] }], "You are an expert academy enrollment advisor.", 3);
+                document.getElementById('ai-result-content').textContent = responseText;
+            } catch (e) {
+                document.getElementById('ai-result-content').textContent = 'Error: Failed to generate message draft. Please check the network.';
+                console.error("Error generating enrollment message:", e);
+            } finally {
+                openAIModal(null, false);
+            }
+        }
+
+        async function generateCareerPath() {
+            const resultDiv = document.getElementById('career-path-result');
+            // Ensure resultDiv exists before modifying it
+            if (!resultDiv) {
+                console.error("Element #career-path-result not found.");
+                return;
+            }
+            const generateButton = document.getElementById('generate-career-path');
+            const accentColor = getComputedStyle(document.body).getPropertyValue('--color-accent');
+            resultDiv.innerHTML = `<p class="text-center text-accent animate-pulse" style="color:${accentColor}">✨ Analyzing your career goals with Lakmé Certified Standards...</p>`;
+            if (generateButton) { // Check if button exists
+                generateButton.disabled = true;
+                generateButton.textContent = 'Generating...';
+            }
+
+
+            let courseList = "";
+            // Safely access academy items
+            if (APP_DATA.academy && APP_DATA.academy.items) {
+                APP_DATA.academy.items.forEach(item => { courseList += `${item.name} (Fee: ₹${item.price.toLocaleString('en-IN')}) - ${item.detail}\n`; });
+            } else {
+                console.warn("APP_DATA.academy.items is missing or not an array.");
+            }
+
+
+            const careerPrompt = `You are a career counselor specializing in beauty and makeup artistry (Lakmé Certified). The user is interested in starting or upgrading their career using the following courses: Available Courses: ${courseList || 'No courses listed'}. 1. Recommend a 2-step path: A Starting Course (Basic) and an Advanced Course (High Earning). 2. Estimate the total time (in weeks/months) and total cost (in INR). 3. Estimate a potential average monthly earning range in Lucknow (in INR, e.g., '₹30,000 - ₹50,000') after completing the path. Provide a short, professional summary in Hindi (Latin) format (max 4-5 concise sentences).`;
+
+            try {
+                const responseText = await getGeminiResponse([{ parts: [{ text: careerPrompt }] }], "You are a professional beauty career counselor.", 3);
+
+                resultDiv.innerHTML = `<h3 class="text-xl font-bold text-accent mb-3">Your Personalized Career Path</h3><div class="p-4 rounded border-dashed border-accent/50 rounded-lg bg-gray-50">${responseText.replace(/\n/g, '<br>')}</div>`;
+            } catch (e) {
+                resultDiv.innerHTML = '<p class="text-red-400">Sorry, the AI career advisor is currently unavailable. Please check the course list manually.</p>';
+                console.error("Error generating career path:", e);
+            } finally {
+                if (generateButton) { // Check if button exists
+                    generateButton.disabled = false;
+                    generateButton.textContent = '✨ Generate AI Career Path';
+                }
+            }
+        }
+
+
+        function openServicePlanModal() {
+            // Reset form and result
+            document.getElementById('occasion-type').value = 'Wedding/Reception';
+            document.getElementById('desired-goal').value = '';
+            document.getElementById('service-plan-form').classList.remove('hidden');
+            document.getElementById('service-plan-result').classList.add('hidden');
+            document.getElementById('generate-plan-button').textContent = 'Generate Plan';
+            document.getElementById('generate-plan-button').disabled = false;
+
+            document.getElementById('service-plan-modal').classList.add('flex');
+            document.getElementById('service-plan-modal').classList.remove('hidden');
+        }
+
+
+        function closeServicePlanModal() {
+            document.getElementById('service-plan-modal').classList.add('hidden');
+            document.getElementById('service-plan-modal').classList.remove('flex');
+        }
+
+        async function generateServicePlan() {
+            const occasion = document.getElementById('occasion-type').value;
+            const goal = document.getElementById('desired-goal').value.trim();
+            const resultDiv = document.getElementById('service-plan-result');
+            const formDiv = document.getElementById('service-plan-form');
+            const generateButton = document.getElementById('generate-plan-button');
+
+            if (!goal) {
+                alert('Please describe your desired look or goal.'); // Use alert for simplicity
+                return;
+            }
+
+            formDiv.classList.add('hidden');
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `<p class="text-center text-accent animate-pulse">✨ Analyzing your needs and creating your plan...</p>`;
+            generateButton.disabled = true;
+            generateButton.textContent = 'Generating...';
+
+            let serviceList = "";
+            for (const categoryKey in APP_DATA.services) { APP_DATA.services[categoryKey].items.forEach(item => { serviceList += `${item.name} (${APP_DATA.services[categoryKey].title}, ₹${item.price.toLocaleString('en-IN')}) - ${item.detail}\n`; }); }
+
+            const planPrompt = `You are a master beauty consultant creating a luxury service package for a client at SJ Makeover & Academy. Client Needs: - Occasion: ${occasion} - Desired Goal: ${goal}. Available Services: ${serviceList}. Based on the needs, recommend a package of 2 to 4 services that complement each other. Format the response professionally in English: 1. Provide a professional title for the suggested package. 2. List the Recommended Services using bolding (max 4 services). 3. Conclude with a short, encouraging call to action to book now via WhatsApp.`;
+
+            try {
+                const responseText = await getGeminiResponse([{ parts: [{ text: planPrompt }] }], "You are a master beauty consultant.", 3);
+
+                const whatsappMessage = `Hello SJ Makeover, I would like to inquire about the *Personalized Service Plan* that Gemini recommended based on my goal: ${goal}. Please assist with booking the services.`;
+                const whatsappUrl = `https://api.whatsapp.com/send?phone=91${APP_DATA.contactNumber}&text=${encodeURIComponent(whatsappMessage)}`;
+
+                resultDiv.innerHTML = `<div class="whitespace-pre-wrap">${responseText.replace(/\n/g, '<br>')}</div><div class="mt-4 pt-4 border-t border-gray-300 text-center"><a href="${whatsappUrl}" target="_blank" class="primary-button inline-block px-4 py-2 text-sm">Book This Plan via WhatsApp</a></div>`;
+            } catch (e) {
+                resultDiv.innerHTML = '<p class="text-red-400">Sorry, the AI Plan Generator is temporarily unavailable. Please try again or use the Contact page.</p>';
+                console.error("Error generating service plan:", e);
+            } finally {
+                generateButton.disabled = false;
+                generateButton.textContent = 'Generate Plan';
+            }
+        }
+
+        // --- HEADER/FOOTER HIDE ON SCROLL ---
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function () {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const header = document.getElementById('header-bar');
+            const footer = document.getElementById('footer');
+            const chatbotButton = document.getElementById('chatbot-button'); // Include chatbot button
+
+            if (scrollTop > lastScrollTop && scrollTop > 80) { // Scrolling Down
+                if (header) header.classList.add('hidden');
+                if (footer) footer.classList.add('hidden');
+                if (chatbotButton) chatbotButton.classList.add('hidden'); // Hide chatbot too
+            } else { // Scrolling Up or at top
+                if (header) header.classList.remove('hidden');
+                if (footer) footer.classList.remove('hidden');
+                if (chatbotButton) chatbotButton.classList.remove('hidden'); // Show chatbot too
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        }, false);
+
+
+        // --- FADE-IN ANIMATION ON SCROLL ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Optional: Stop observing once visible
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
+
+
+        // --- INITIALIZATION ---
+        window.onload = function () {
+            showPage('home'); // Load initial page
+            updateCartCount(); // Update cart display
+            attachHoverListeners(); // Attach desktop hover effects
+
+            // Observe sections for fade-in AFTER initial content load
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in-section').forEach(section => {
+                    observer.observe(section);
+                });
+            }, 100); // Small delay to ensure content exists
+        };
+    </script>
+</body>
+
+</html>
